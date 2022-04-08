@@ -1,0 +1,31 @@
+#RUN A NEW CONTAINER
+
+#Start a new container from an Image
+docker run IMAGE_ID
+
+#and assign it a name
+docker run --name CONTAINER_ID IMAGE_ID
+
+#map a port
+docker run HOSTPORT:CONTAINERPORT IMAGE_ID
+
+#map all ports
+docker run -P IMAGE_ID
+
+#start container in background
+docker run -d IMAGE_ID
+
+#assign hostname
+docker run --hostname HOSTNAME IMAGE_ID
+
+#add a DNS entry
+docker run --add-host HOSTNAME:IP IMAGE_ID
+
+#map a local directory into the container
+docker run -v HOSTDIR:TARGETDIR IMAGE_ID
+
+#change the entrypoint
+docker run -it --entrypoint EXECUTABLE IMAGE_ID
+
+
+
