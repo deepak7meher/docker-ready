@@ -29,3 +29,165 @@ docker run -it --entrypoint EXECUTABLE IMAGE_ID
 
 
 
+
+	
+
+Purpose --> Commands
+---------------------
+#To see all images present in your machine	
+docker images
+
+#To find out images in docker hub.(Searching for jenkins images)	
+docker search jenkins
+
+#To download image(jenkins) from docker hub to your machine	
+docker pull jenkins
+
+#To create container, give name to the container and start the container	
+docker run -it --name <containername> ubuntu /bin/bash
+
+#To check service is in start state or not	
+service docker status
+
+#To create a container but do not run it.	
+docker container create --name <containername> <imagename>
+
+#To start container 	
+docker start <containername>
+
+#To go inside the container	
+docker attach <containername>
+
+#To see all containers	
+docker ps -a
+
+#To see only running containers 	
+docker ps
+
+#To stop container	
+docker stop <containername> 
+
+#To delete container	
+docker rm <containername>
+
+#If you want to see the difference between the base image and changes on it	
+docker diff deepakcontainer 
+	Output:
+	C /root
+	A /root/.bash_history
+	C /tmp
+	A /tmp/myfile
+
+#To create image of the existing container	
+docker commit <containername> <imagename>
+
+#To create a Docker image using a Dockerfile in the directory	
+docker build -t  <imagename>  .
+(-t is for tag)
+
+#To create a volume in container	
+docker volume create <volumename>
+
+#To delete a volume in container	
+docker volume rm <volumename>
+
+#To delete all unused local volume. Unused local volumes are those which are not referenced by any containers.
+docker volume prune
+
+#To get the information about the volume. Return JSON Array	
+docker volume inspect <volumename>
+
+#To display detailed information on one or more containers.	
+docker container inspect <containername>
+
+#To share the volume in one container with another container	
+docker run -it 
+--name <containername-new> 
+--privileged=true 
+--volumes-from <containername-old> ubuntu 
+/bin/bash
+
+#To expose port and create and run the container	
+docker run -td
+--name <containername>
+-p 80:80 ubuntu
+
+#To List port mappings for the container	
+docker port <containername>
+
+#To fetches the logs of a container	
+docker container logs <containername>
+
+#To list the containers	
+docker container ls
+
+To kill one or more running containers	docker container kill <containername>
+To copy files/folder between a container and the local filesystem	docker container cp
+To login to docker hub/registry	docker login
+To pause all processes within one or more containers	docker pause <containername>
+To push an image to a registry	docker image push 
+To restart one or more container 	docker restart <containername>
+To run a command in running container	docker exec -ti <containername> sh -c "echo a && echo b"
+
+Docker run = docker pull + docker start
+
+docker exec -it 153b5433affd /bin/sh
+
+docker exec -u 0 -it 153b5433affd /bin/sh
+
+If you do not put the -u 0 flag inside your docker container then you will be logged as appuser and you will not have root privileges and you will not be able to install any new utility inside your docker container.
+
+
+
+
+
+
+Dockerfile
+	1. Dockerfile is basically a text file. It contains some set of instructions.
+	2. Automation of docker image creation.
+
+Dockerfile components
+FROM 	 For base/parent image. This command is on the top of the dockerfile.
+RUN 	To execute commands while image creation, for additional dependencies it will create a layer in image.
+MAINTAINER	Author/Owner/Description
+COPY	Copy files from local system (docker VM), we need to provide source, destination (we can't download file from the internet and any repo)
+VOLUME	Creating a volume in the container
+ADD	Similar to COPY it provides feature to download files from internet, also we extract file at docker image side. If the file is zipped, it unzips it also.
+EXPOSE	To export ports such as port 8080 for tomcat
+WORKDIR	To set the working directory for a container
+CMD	Execute commands but during container creation
+ENTRYPOINT	Similar to CMD, but has higher priority over CMD, first commands in ENTRYPOINT will be executed.
+ENV	Environment Variables
+ARG	
+
+You can insert comments in your Dockerfile using #
+
+
+Docker Volume
+	1. Volume is simply a directory inside our container
+	2. Firstly, we have to declare this directory as a volume and then share the volume.
+	3. Even if we stop container, still we can access the volume
+	4. Volume will be created in one container
+	5. You can declare a directory as a volume only while creating container
+	6. You can't create volume from existing container
+	7. You can share volume across any number of containers
+	8. Volume will not be included when you update an image -> When you create a container from an image having a docker volume. It will only act as a directory.
+	9. You can map volume in two ways:
+		a. Container -> Container
+		b. Host -> Container
+	
+Benefits of Volume
+	1. Decoupling container from storage 
+	2. Share volume among different containers
+	3. Attach volume to containers
+	4. On deleting the container, the volume does not delete.
+
+Creating volume 
+	1. Can be created from Dockerfile
+	2. Docker volume 
+
+Sharing volume with another container
+docker run -it --name deepakcontainer --privileged=true --volumes-from container1 ubuntu /bin/bash
+
+
+
