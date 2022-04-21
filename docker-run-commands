@@ -121,32 +121,45 @@ docker container logs <containername>
 #To list the containers	
 docker container ls
 
-To kill one or more running containers	docker container kill <containername>
-To copy files/folder between a container and the local filesystem	docker container cp
-To login to docker hub/registry	docker login
-To pause all processes within one or more containers	docker pause <containername>
-To push an image to a registry	docker image push 
-To restart one or more container 	docker restart <containername>
-To run a command in running container	docker exec -ti <containername> sh -c "echo a && echo b"
+#To kill one or more running containers	
+docker container kill <containername>
 
-Docker run = docker pull + docker start
+#To copy files/folder between a container and the local filesystem	
+docker container cp
 
+#To login to docker hub/registry	
+docker login
+
+#To pause all processes within one or more containers	
+docker pause <containername>
+
+#To push an image to a registry	
+docker image push 
+
+#To restart one or more container 	
+docker restart <containername>
+
+#To run a command in running container	
+docker exec -ti <containername> sh -c "echo a && echo b"
+
+#Docker run = docker pull + docker start
 docker exec -it 153b5433affd /bin/sh
-
 docker exec -u 0 -it 153b5433affd /bin/sh
 
-If you do not put the -u 0 flag inside your docker container then you will be logged as appuser and you will not have root privileges and you will not be able to install any new utility inside your docker container.
+If you do not put the -u 0 flag inside your docker container then you will be logged as appuser 
+and you will not have root privileges and you will not be able to install any new utility inside your docker container.
 
 
 
 
 
 
-Dockerfile
-	1. Dockerfile is basically a text file. It contains some set of instructions.
-	2. Automation of docker image creation.
+#Dockerfile
+#-------------
+	#1. Dockerfile is basically a text file. It contains some set of instructions.
+	#2. Automation of docker image creation.
 
-Dockerfile components
+#Dockerfile components
 FROM 	 For base/parent image. This command is on the top of the dockerfile.
 RUN 	To execute commands while image creation, for additional dependencies it will create a layer in image.
 MAINTAINER	Author/Owner/Description
@@ -160,7 +173,7 @@ ENTRYPOINT	Similar to CMD, but has higher priority over CMD, first commands in E
 ENV	Environment Variables
 ARG	
 
-You can insert comments in your Dockerfile using #
+#You can insert comments in your Dockerfile using #
 
 
 Docker Volume
@@ -176,17 +189,17 @@ Docker Volume
 		a. Container -> Container
 		b. Host -> Container
 	
-Benefits of Volume
+#Benefits of Volume
 	1. Decoupling container from storage 
 	2. Share volume among different containers
 	3. Attach volume to containers
 	4. On deleting the container, the volume does not delete.
 
-Creating volume 
+#Creating volume 
 	1. Can be created from Dockerfile
 	2. Docker volume 
 
-Sharing volume with another container
+#Sharing volume with another container
 docker run -it --name deepakcontainer --privileged=true --volumes-from container1 ubuntu /bin/bash
 
 
